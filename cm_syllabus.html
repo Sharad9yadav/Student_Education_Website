@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apna web</title>
+  <link rel="stylesheet" href="manual-pdf.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <nav>
+    <div class="nav-bar">
+        <i class='bx bx-menu sidebarOpen' ></i>
+        <span class="logo navLogo"><a href="#"><h2>Apna Web</h2></a></span>
+
+        <div class="menu">
+            <div class="logo-toggle">
+                <span class="logo"><a href="#"></a></span>
+                <i class='bx bx-x siderbarClose'></i>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Software</a></li>
+                <li><a href="#">Syllabus</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="darkLight-searchBox">
+            <div class="dark-light">
+                <i class='bx bx-moon moon'></i>
+                <i class='bx bx-sun sun'></i>
+            </div>
+
+            <div class="searchBox">
+               <div class="searchToggle">
+                <i class='bx bx-x cancel'></i>
+                <i class='bx bx-search search'></i>
+               </div>
+
+                <div class="search-field">
+                  <input type="text" id="search-input" placeholder="Enter text to search">
+                  <button onclick="searchText()"></button>
+                    
+                    <i class='bx bx-search'></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+
+const body = document.querySelector("body"),
+  nav = document.querySelector("nav"),
+  modeToggle = document.querySelector(".dark-light"),
+  searchToggle = document.querySelector(".searchToggle"),
+  sidebarOpen = document.querySelector(".sidebarOpen"),
+  siderbarClose = document.querySelector(".siderbarClose");
+
+  let getMode = localStorage.getItem("mode");
+      if(getMode && getMode === "dark-mode"){
+        body.classList.add("dark");
+      }
+
+// js code to toggle dark and light mode
+  modeToggle.addEventListener("click" , () =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    // js code to keep user selected mode even page refresh or file reopen
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode" , "light-mode");
+    }else{
+        localStorage.setItem("mode" , "dark-mode");
+    }
+  });
+
+// js code to toggle search box
+    searchToggle.addEventListener("click" , () =>{
+    searchToggle.classList.toggle("active");
+  });
+
+  
+//   js code to toggle sidebar
+sidebarOpen.addEventListener("click" , () =>{
+nav.classList.add("active");
+});
+
+body.addEventListener("click" , e =>{
+let clickedElm = e.target;
+
+if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+    nav.classList.remove("active");
+}
+});
+
+</script> 
+<div class="owl-carousel owl-theme">
+  <div class="item carousel-item">
+    <img src="https://t3.ftcdn.net/jpg/04/83/54/50/240_F_483545014_giRhbJN3YJw2EKGpIHHPDldGlojFltsJ.jpg" alt="Image 1">
+    <div class="carousel-text"><h1>Welcome To Apna Web</h1></div>
+  </div>
+  <div class="item carousel-item">
+    <img src="https://media.istockphoto.com/id/616902766/photo/dedicated-to-software-development.jpg?s=612x612&w=0&k=20&c=DbeQZha7EDOxSCK49IOzP6DaVJaBElzFItOVJKQSDek=" alt="Image 2">
+    <div class="carousel-text"></div>
+  </div>
+  <div class="item carousel-item">
+    <img src="https://media.istockphoto.com/id/1136027027/video/two-electronics-development-engineers-working-on-computers-talk-with-project-manager-team-of.jpg?s=640x640&k=20&c=sXfNv4pPktvI8RBTeQNvy_kqflaVgSdsFcLNlP-Ty88=" alt="Image 3">
+    <div class="carousel-text"><h1></h1></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+      loop:true,
+      margin:10,
+      nav:false,
+      autoplay:true, // Autoplay enabled
+      autoplayTimeout:3000, // Autoplay interval in milliseconds (e.g., 3000ms = 3 seconds)
+      items:1, // Display only one item at a time
+      responsive:{
+          0:{
+              items:1
+          },
+          600:{
+              items:1
+          },
+          1000:{
+              items:1
+          }
+      }
+    });
+  });
+</script>
+<hr>
+
+      <p style="padding: 30px; font-size: 30px;color: rgb(241, 41, 14);">Search result </p>
+    <div id="search-results"></div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', searchText);
+
+        function searchText() {
+            var searchText = document.getElementById('search-input').value.toLowerCase();
+            var searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = '';
+
+            var rows = document.querySelectorAll('tr');
+            var table = document.createElement('table');
+            var tbody = document.createElement('tbody');
+
+            rows.forEach(row => {
+                var cells = row.querySelectorAll('td');
+                var found = false;
+                cells.forEach(cell => {
+                    var text = cell.innerText.toLowerCase();
+                    if (text.includes(searchText)) {
+                        found = true;
+                    }
+                });
+                if (found) {
+                    tbody.appendChild(row.cloneNode(true)); // Clone the entire row
+                }
+            });
+
+            if (tbody.children.length > 0) {
+                table.appendChild(tbody);
+                searchResults.appendChild(table);
+            } else {
+                searchResults.textContent = 'No matching content found.';
+            }
+        }
+    </script>
+   <hr>
+   <div class="pdf">
+    <section>
+      <h2 style="text-align: center; padding: 50px; color: green; ">
+        Computer Department all semester Syllabus pdf is available
+      </h2>
+    </section>
+  </div>
+      <h3 class="sem-header"> MSBTE 1st Semester Syllabus Pdf</h3>
+      <div class="container">
+          <table id="manual_table">       
+               <tbody>
+                  <thead>
+                     <tr>
+                      <th class="coder-header1">subject  code</th>
+                      <th class="subject-header1">subject name</th>
+                      <th class="=manual-header1">Syllabus</th>
+                      <th class="download-header1">Download</th>
+                     </tr>
+                   <tr>
+                      <td>22001</td>
+                      <td>Fundamentals of ICT</td>
+                      <td>Syllabus </td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22001.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22101	</td>
+                      <td>English</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22101.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22102	</td>
+                      <td>Basic Science</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22102.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22103	</td>
+                      <td> Basic Mathematics (BMS)</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22103.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22003	</td>
+                      <td>Engineering Graphics (EGR)</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22003.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22005	</td>
+                      <td>Workshop Practice (WPC)</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22005.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+              </thead>
+          </tbody>
+        </table>
+      </div>
+      <div>
+      <h3 class="sem_header"><center>MSBTE 2nd Semester Syllabus Pdf</center></h3>
+      <!-- <p>MSBTE Syllabus for Diploma in Engineering & Technology, All 2nd Semester branches are available in PDF. You can download it by choosing your subject.</p> -->
+  </div>
+      <div class="container">
+      <table id="manual_table">
+          <thead>
+              <tr>
+                  <th class="coder-header1">subject code</th>
+                  <th class="subject-header1">subject name</th>
+                  <th class="=manual-header1">Syllabus</th>
+                  <th class="download-header1">Download</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>22215</td>
+              <td>Elements of Electrical Engineering(EEC)</td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22215.pdf" download="" class="download-btn">Download</a></td>
+  
+            </tr>
+            <tr>
+              <td>22226</td>
+              <td>Programming in c (Computer Group)</td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22226.pdf" download=" " class="download-btn">Download</a></td>
+  
+            </tr>
+            <tr>
+              <td>22225</td>
+              <td>Basic Electronics </td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22225.pdf" download=" " class="download-btn">Download</a></td>
+  
+            </tr>
+  
+            <tr>
+              <td>22224</td>
+              <td>Applied Mathematics (AMI)</td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22224.pdf" download=" " class="download-btn">Download</a></td>
+            </tr>
+        
+            <tr>
+              <td>22009</td>
+              <td> Business Communications Using Computers (BCC) </td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22009.pdf" download=" " class="download-btn">Download</a></td>
+            </tr>
+            <tr>
+              <td>22013</td>
+              <td>Computer Peripheral and Hardware Maintenance (CPH)</td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22013.pdf" download=" " class="download-btn">Download</a></td>
+            </tr>
+           
+            
+          </tbody>
+      </table>
+  
+      </div>
+      <div>
+          <h3 class="sem-header">MSBTE 3rd Semester Syllabus Pdf</h3>
+          <!-- <pre>                                            Download the MSBTE Syllabus for the 3rd Semester Diploma of Computer Branches.</pre> -->
+      </div>
+      <div class="container">
+          <table id="manual_table">       
+               <tbody>
+                  <thead>
+                     <tr>
+                      <th class="coder-header1">subject code</th>
+                      <th class="subject-header1">subject name</th>
+                      <th class="=manual-header1">Syllabus</th>
+                      <th class="download-header1">Download</th>
+                     </tr>
+                   <tr>
+                      <td>22316	</td>
+                      <td>Object Oriented Programming Using OOP C++</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22316.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22317	</td>
+                      <td>Data Structure Using ‘C’ DSU </td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22317.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22318</td>
+                      <td>Computer Graphics CGR </td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22318.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22319	</td>
+                      <td>Database Management System DBMS</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22319.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22320	</td>
+                    <td>Digital Techniques DTE</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22320.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                  
+           </thead>
+          </tbody>
+        </table>
+      </div>
+      <div>
+          <h3 class="sem-header">MSBTE 4th Semester Syllabus Pdf</h3>
+          <!-- <pre>                                             Download the MSBTE Syllabus for the 4th Semester Diploma of Computer Branches.</pre> -->
+      </div>
+      <div class="container">
+          <table id="manual_table">       
+               <tbody>
+                  <thead>
+                     <tr>
+                      <th class="coder-header1">subject code</th>
+                      <th class="subject-header1">subject name</th>
+                      <th class="=manual-header1">Syllabus</th>
+                      <th class="download-header1">Download</th>
+                     </tr>
+                   <tr>
+                      <td>22412	</td>
+                      <td>Java Programming JPR </td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22412-java-programming.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td> 22034	</td>
+                    <td>GUI Application Development Using VB.net</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22034-gui-application-development-using-vb.net_.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td> 22413</td>
+                    <td>Software Engineering SEN</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22413-software-enginering.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   
+                   <tr>
+                    <td> 22414</td>
+                    <td> Data Communication and Computer Network DCC</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22414-data-communication-and-computer-network.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   
+                  </thead>
+              </tbody>
+          </table>
+      </div>
+      <div>
+        <h3 class="sem-header">MSBTE 5th Semester Syllabus Pdf</h3>
+        <!-- <p>Download the MSBTE Syllabus for the 3rd Semester Diploma of Computer Branches.</p> -->
+    </div>
+    <div class="container">
+        <table id="manual_table">       
+             <tbody>
+                <thead>
+                   <tr>
+                    <th class="coder-header1">subject code</th>
+                    <th class="subject-header1">subject name</th>
+                    <th class="=manual-header1">Syllabus</th>
+                    <th class="download-header1">Download</th>
+                   </tr>
+                 <tr>
+                    <td>22517</td>
+                    <td>Advanced Java Programming AJP</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22517-advanced-java-programming.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22447	</td>
+                  <td>Environmental Studies EST</td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22447-enviornmental-studies.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22516	</td>
+                  <td> Operating Systems OSY </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22516-operating-system.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22518</td>
+                  <td> Software Testing STE </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22518-softwaretesting.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22519	</td>
+                  <td>Client Side Scripting Language CSS </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22519-client-side-scripting-language.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22520	</td>
+                  <td>Advanced Computer Network ACN </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22520-advanced-computer-network.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22521	</td>
+                  <td>Advanced Database Management Systems ADM </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22521-advanced-data-base-managment-system.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22049	</td>
+                  <td>Industrial Training ITR </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/weekly-training-diary-format.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22050	</td>
+                  <td>Capstone Project Planning CPP </td>
+                  <td>Syllabus</td>
+                  <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22050-capstone-project-planning.pdf" download=" " class="download-btn">Download</a></td>
+                 </tr>
+               
+             </thead>
+            </tbody>
+        </table> 
+      </div>
+      <div>
+        <h3 class="sem-header">MSBTE 6th Semester Syllabus Pdf</h3>
+        <!-- <p>Download the MSBTE Syllabus for the 3rd Semester Diploma of Computer Branches.</p> -->
+    </div>
+    <div class="container">
+        <table id="manual_table">       
+             <tbody>
+                <thead>
+                   <tr>
+                    <th class="coder-header1">subject code</th>
+                    <th class="subject-header1">subject name</th>
+                    <th class="=manual-header1">Syllabus</th>
+                    <th class="download-header1">Download</th>
+                   </tr>
+                   <tr>
+                    <td>22509</td>
+                    <td>Management MGT </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22509-management.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22618	</td>
+                    <td>Emerging Trends in Computer and Information Technology ETI </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2023/02/22618_-_emerging_trends_in_computer_and_information_technology_190120231257.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22617</td>
+                    <td>Mobile Application Development MAD </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22617-mobile-application-development.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22619</td>
+                    <td>Web Based Application Development Using PHP WBP </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22619-web-based-application-development-with-php.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22616	</td>
+                    <td>Programming with Python</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22616-programming-with-python.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22620	</td>
+                    <td>Network and Information Security NIS </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22620-network-and-information-security.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22621	</td>
+                    <td>Data Warehousing with Mining Techniques DWM </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1_hs2n-q7X8K6HLUQtHC--XFw1vKKQ0n3/view" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22032</td>
+                    <td>Entrepreneurship Development EDE </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://mktutorials4u.files.wordpress.com/2021/03/22032-entrepreneurship-development.pdf" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22060</td>
+                    <td>Capstone Project – Execution & Report Writing CPE </td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1wW9b-17-hX5AvSvoxskjC0Tf1DrUhl4l/view" download=" " class="download-btn">Download</a></td>
+                   </tr>
+               
+                </thead>
+             </tbody>
+        </table>
+    </div>
+   
+   <hr>
+   <section class="form-section">
+    <form class="contact-form" action="feedback.php" method="post">
+      <h3>Contact Us</h3>
+      <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+          <input type="submit" value="Submit">
+      </div>
+  </form>
+  </section>
+  
+  <footer class="footer">
+    <p>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </p>
+    <p>&copy;  | Designed by <a href="https://example.com" target="_blank">Apna Web Team</a></p>
+  </footer>
+  
+
+</body>
+</html>

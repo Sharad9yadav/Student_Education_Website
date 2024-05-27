@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @mixin sp-layout {
+  @media screen and (max-width: 750px) {
+    @content;
+  }
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+   background: radial-gradient(ellipse at bottom, #0d1d31 0%, #0c0d13 100%);
+  overflow: hidden;
+}
+
+@function random_range($min, $max) {
+  $rand: random();
+  $random_range: $min + floor($rand * (($max - $min) + 1));
+  @return $random_range;
+}
+
+.stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  transform: rotate(-45deg);
+}
+
+.star {
+  $star-count: 50;
+  --star-color: var(--primary-color);
+  --star-tail-length: 6em;
+  --star-tail-height: 2px;
+  --star-width: calc(var(--star-tail-length) / 6);
+  --fall-duration: 9s;
+  --tail-fade-duration: var(--fall-duration);
+}
+
+  .star {
+  position: absolute;
+  top: var(--top-offset);
+  left: 0;
+  width: var(--star-tail-length);
+  height: var(--star-tail-height);
+  color: var(--star-color);
+  background: linear-gradient(45deg, currentColor, transparent);
+  border-radius: 50%;
+  filter: drop-shadow(0 0 6px currentColor);
+  transform: translate3d(104em, 0, 0);
+  animation: fall var(--fall-duration) var(--fall-delay) linear infinite, tail-fade var(--tail-fade-duration) var(--fall-delay) ease-out infinite;
+
+  @include sp-layout {
+    // For mobile performance, tail-fade animation will be removed QAQ
+    animation: fall var(--fall-duration) var(--fall-delay) linear infinite;
+  }
+
+  @for $i from 1 through $star-count {
+    &:nth-child(#{$i}) {
+      --star-tail-length: #{random_range(500em, 750em) / 100};
+      --top-offset: #{random_range(0vh, 10000vh) / 100};
+      --fall-duration: #{random_range(6000, 12000s) / 1000};
+      --fall-delay: #{random_range(0, 10000s) / 1000};
+    }
+  }
+
+  &::before, &::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: calc(var(--star-width) / -2);
+    width: var(--star-width);
+    height: 100%;
+    background: linear-gradient(45deg, transparent, currentColor, transparent);
+    border-radius: inherit;
+    animation: blink 2s linear infinite;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+@keyframes fall {
+  to {
+    transform: translate3d(-30em, 0, 0);
+  }
+}
+
+@keyframes tail-fade {
+  0%, 50% {
+    width: var(--star-tail-length);
+    opacity: 1;
+  }
+
+  70%, 80% {
+    width: 0;
+    opacity: 0.4;
+  }
+
+  100% {
+    width: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.6;
+  }
+}
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #262228;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .about-us {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #fdfcfc;
+    }
+
+    .persons-container {
+      display: flex; /* Display the persons horizontally */
+      flex-wrap: wrap; /* Allow wrapping to the next line */
+      justify-content: center; /* Center the persons horizontally */
+    }
+
+    .person {
+      text-align: center;
+      margin: 0 50px 60px; /* Add margin between each person */
+      width: 200px; /* Set a fixed width for each person */
+    }
+
+    .person img {
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .person h2 {
+      margin: 10px 0;
+      color: #fdfcfc;
+    }
+
+    .person p {
+      color: #fdfcfc;
+    }
+  </style>
+  <script>
+
+    // Example data for three persons
+    const persons = [
+      {
+        name: "Navnit Yadav",
+        position: "Back-end Developer",
+        description: "Experienced backend developer focused on building scalable and efficient server-side solutions.",
+        email: "knavnitk2020@gmail.com",
+        contact: "+91 7549408120",
+        imageSrc:"navnit bac img.jpg"
+      },
+      {
+        name: "Sharad Yadav",
+        position: "Front-end Developer",
+        description: "Creative frontend developer specializing in building engaging user interfaces.",
+        email: "sharad9yadav110@gmail.com",
+        contact: "+91 7491952655",
+        imageSrc: "beta img.jpg"
+      },
+      {
+        name: "Vikram Kumar",
+        position: "Software Developer",
+        description: "Passionate software developer with expertise in various programming languages.",
+        email: "vikrammasum@gmail.com",
+        contact: "+91 7870086041",
+        imageSrc: "vikram.png"
+      },
+      {
+        name: "Umar farooque",
+        position: "Software Testing",
+        description: "providing feedback to developers on how to improve the quality, usability and steadfastness of the products and solutions. ",
+        email: "farooqueu143@gmail.com",
+        contact: "+91 7370910739",
+        imageSrc: "aman.jpeg"
+      }
+    ];
+
+    // Function to render persons on the page
+    function renderPersons() {
+      const container = document.getElementById("persons-container");
+
+      persons.forEach(person => {
+        const personDiv = document.createElement("div");
+        personDiv.classList.add("person");
+
+        personDiv.innerHTML = `
+          <img src="${person.imageSrc}" alt="${person.name}">
+          <h2>${person.name}</h2>
+          <p>${person.position}</p>
+          <p>${person.description}</p>
+          <p>Email: ${person.email}</p>
+          <p>Contact: ${person.contact}</p>
+        `;
+
+        container.appendChild(personDiv);
+      });
+    }
+
+    // Call the renderPersons function when the page is loaded
+    document.addEventListener("DOMContentLoaded", renderPersons);
+  </script>
+</head>
+<body>
+  <div class="stars">
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+    <div class="star"></div>
+  </div>
+  <div class="container">
+    <div class="about-us">
+      <h2>About Us..</h2>
+      <!-- <marquee behaviour="alternate" onmousehover="this.stop();" onmouseout="this.start();"> -->
+        <!-- <a>Welcome to our Apna web , the main aim of this project we will try our best helping the students provide the study related Materials here creating your personal profile and select your department then Suggest our website your department related materials and software it is easy as searching your studies materials. All students do not know from where to download all the software or how to do it, so we have created a website with our name which has all the software available or how to download it, also suggestions.
+          It will be given and we will try our best that the students do not have to face too many problems.
+         Security and Privacy: Ensuring the security of user data and privacy is of utmost importance. The application will implement robust security measures and adhere to data protection regulations.
+        </a> -->
+      <!-- </marquee> -->
+      <p>Welcome to our Apna web , the main aim of this project we will try our best helping the students provide the study related Materials here creating your personal profile and select your department then Suggest our website your department related materials and software it is easy as searching your studies materials. All students do not know from where to download all the software or how to do it, so we have created a website with our name which has all the software available or how to download it, also suggestions.
+        It will be given and we will try our best that the students do not have to face too many problems.
+       Security and Privacy: Ensuring the security of user data and privacy is of utmost importance. The application will implement robust security measures and adhere to data protection regulations.
+       </p>
+    </div>
+    <div class="persons-container" id="persons-container"></div>
+  </div>
+</body>
+</html>

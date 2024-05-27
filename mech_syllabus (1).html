@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>  mechanical syllabus</title>
+  <link rel="stylesheet" href="manual-pdf.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+  <nav>
+    <div class="nav-bar">
+        <i class='bx bx-menu sidebarOpen' ></i>
+        <span class="logo navLogo"><a href="#"><h2>Apna Web</h2></a></span>
+
+        <div class="menu">
+            <div class="logo-toggle">
+                <span class="logo"><a href="#"></a></span>
+                <i class='bx bx-x siderbarClose'></i>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Software</a></li>
+                <li><a href="#">Syllabus</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="darkLight-searchBox">
+            <div class="dark-light">
+                <i class='bx bx-moon moon'></i>
+                <i class='bx bx-sun sun'></i>
+            </div>
+
+            <div class="searchBox">
+               <div class="searchToggle">
+                <i class='bx bx-x cancel'></i>
+                <i class='bx bx-search search'></i>
+               </div>
+
+                <div class="search-field">
+                  <input type="text" id="search-input" placeholder="Enter text to search">
+                  <button onclick="searchText()"></button>
+                    
+                    <i class='bx bx-search'></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+
+const body = document.querySelector("body"),
+  nav = document.querySelector("nav"),
+  modeToggle = document.querySelector(".dark-light"),
+  searchToggle = document.querySelector(".searchToggle"),
+  sidebarOpen = document.querySelector(".sidebarOpen"),
+  siderbarClose = document.querySelector(".siderbarClose");
+
+  let getMode = localStorage.getItem("mode");
+      if(getMode && getMode === "dark-mode"){
+        body.classList.add("dark");
+      }
+
+// js code to toggle dark and light mode
+  modeToggle.addEventListener("click" , () =>{
+    modeToggle.classList.toggle("active");
+    body.classList.toggle("dark");
+
+    // js code to keep user selected mode even page refresh or file reopen
+    if(!body.classList.contains("dark")){
+        localStorage.setItem("mode" , "light-mode");
+    }else{
+        localStorage.setItem("mode" , "dark-mode");
+    }
+  });
+
+// js code to toggle search box
+    searchToggle.addEventListener("click" , () =>{
+    searchToggle.classList.toggle("active");
+  });
+
+  
+//   js code to toggle sidebar
+sidebarOpen.addEventListener("click" , () =>{
+nav.classList.add("active");
+});
+
+body.addEventListener("click" , e =>{
+let clickedElm = e.target;
+
+if(!clickedElm.classList.contains("sidebarOpen") && !clickedElm.classList.contains("menu")){
+    nav.classList.remove("active");
+}
+});
+
+</script> 
+<div class="owl-carousel owl-theme">
+  <div class="item carousel-item">
+    <img src="https://t3.ftcdn.net/jpg/04/83/54/50/240_F_483545014_giRhbJN3YJw2EKGpIHHPDldGlojFltsJ.jpg" alt="Image 1">
+    <div class="carousel-text"><h1>Welcome To Apna Web</h1></div>
+  </div>
+  <div class="item carousel-item">
+    <img src="https://media.istockphoto.com/id/616902766/photo/dedicated-to-software-development.jpg?s=612x612&w=0&k=20&c=DbeQZha7EDOxSCK49IOzP6DaVJaBElzFItOVJKQSDek=" alt="Image 2">
+    <div class="carousel-text"></div>
+  </div>
+  <div class="item carousel-item">
+    <img src="https://media.istockphoto.com/id/1136027027/video/two-electronics-development-engineers-working-on-computers-talk-with-project-manager-team-of.jpg?s=640x640&k=20&c=sXfNv4pPktvI8RBTeQNvy_kqflaVgSdsFcLNlP-Ty88=" alt="Image 3">
+    <div class="carousel-text"><h1></h1></div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.owl-carousel').owlCarousel({
+      loop:true,
+      margin:10,
+      nav:false,
+      autoplay:true, // Autoplay enabled
+      autoplayTimeout:3000, // Autoplay interval in milliseconds (e.g., 3000ms = 3 seconds)
+      items:1, // Display only one item at a time
+      responsive:{
+          0:{
+              items:1
+          },
+          600:{
+              items:1
+          },
+          1000:{
+              items:1
+          }
+      }
+    });
+  });
+</script>
+<hr>
+
+      <p style="padding: 30px; font-size: 30px;color: rgb(241, 41, 14);">Search result </p>
+    <div id="search-results"></div>
+
+    <script>
+        document.getElementById('search-input').addEventListener('input', searchText);
+
+        function searchText() {
+            var searchText = document.getElementById('search-input').value.toLowerCase();
+            var searchResults = document.getElementById('search-results');
+            searchResults.innerHTML = '';
+
+            var rows = document.querySelectorAll('tr');
+            var table = document.createElement('table');
+            var tbody = document.createElement('tbody');
+
+            rows.forEach(row => {
+                var cells = row.querySelectorAll('td');
+                var found = false;
+                cells.forEach(cell => {
+                    var text = cell.innerText.toLowerCase();
+                    if (text.includes(searchText)) {
+                        found = true;
+                    }
+                });
+                if (found) {
+                    tbody.appendChild(row.cloneNode(true)); // Clone the entire row
+                }
+            });
+
+            if (tbody.children.length > 0) {
+                table.appendChild(tbody);
+                searchResults.appendChild(table);
+            } else {
+                searchResults.textContent = 'No matching content found.';
+            }
+        }
+    </script>
+   <hr>
+   <div class="pdf">
+    <section>
+      <h2 style="text-align: center; padding: 50px; color: green; ">
+        Machenical Department all semester Syllabus pdf is available
+      </h2>
+    </section>
+  </div>
+      <h3 class="sem-header"> MSBTE 1st Semester Syllabus Pdf</h3>
+      <div class="container">
+          <table id="manual_table">       
+               <tbody>
+                  <thead>
+                     <tr>
+                      <th class="coder-header1">subject  code</th>
+                      <th class="subject-header1">subject name</th>
+                      <th class="=manual-header1">Syllabus</th>
+                      <th class="download-header1">Download</th>
+                     </tr>
+                   <tr>
+                      <td>22001</td>
+                      <td>Fundamentals of ICT</td>
+                      <td>Syllabus </td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22001.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22101	</td>
+                      <td>English</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22101.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22102	</td>
+                      <td>Basic Science</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22102.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22103	</td>
+                      <td> Basic Mathematics (BMS)</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22103.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22003	</td>
+                      <td>Engineering Graphics (EGR)</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22003.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22005	</td>
+                      <td>Workshop Practice (WPC)</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22005.pdf" download="  " class="download-btn">Download</a></td>
+                   </tr>
+              </thead>
+          </tbody>
+        </table>
+      </div>
+      <div>
+      <h3 class="sem_header"><center>MSBTE 2nd Semester Syllabus Pdf</center></h3>
+      <!-- <p>MSBTE Syllabus for Diploma in Engineering & Technology, All 2nd Semester branches are available in PDF. You can download it by choosing your subject.</p> -->
+  </div>
+      <div class="container">
+      <table id="manual_table">
+          <thead>
+              <tr>
+                  <th class="coder-header1">subject code</th>
+                  <th class="subject-header1">subject name</th>
+                  <th class="=manual-header1">Syllabus</th>
+                  <th class="download-header1">Download</th>
+              </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>312311</td>
+              <td>Engineering Drawing</td>
+              <td>Syllabus</td>
+              <td><a href="https://drive.google.com/file/d/1uzWz_27BTlIT7LLMIvoIhpQ6WEIE45Zq/view?usp=sharing" download="" class="download-btn">Download</a></td>
+  
+            </tr>
+            <tr>
+              <td>312308</td>
+              <td>Applied Science</td>
+              <td>Syllabus</td>
+              <td><a href="https://drive.google.com/file/d/1jdDB6D2nf-VSzNDty0X5ZEi-leCJaeNQ/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+  
+            </tr>
+            <tr>
+              <td>312312</td>
+              <td>Applied Mechanics </td>
+              <td>Syllabus</td>
+              <td><a href="#" download=" " class="download-btn">Download</a></td>
+  
+            </tr>
+  
+            <tr>
+              <td>22224</td>
+              <td>Applied Mathematics (AMI)</td>
+              <td>Syllabus</td>
+              <td><a href="https://mktutorials4u.files.wordpress.com/2023/05/22224.pdf" download=" " class="download-btn">Download</a></td>
+            </tr>
+           
+            
+          </tbody>
+      </table>
+  
+      </div>
+      <div>
+          <h3 class="sem-header">MSBTE 3rd Semester Syllabus Pdf</h3>
+          <!-- <pre>                                            Download the MSBTE Syllabus for the 3rd Semester Diploma of Computer Branches.</pre> -->
+      </div>
+      <div class="container">
+          <table id="manual_table">       
+               <tbody>
+                  <thead>
+                     <tr>
+                      <th class="coder-header1">subject code</th>
+                      <th class="subject-header1">subject name</th>
+                      <th class="=manual-header1">Syllabus</th>
+                      <th class="download-header1">Download</th>
+                     </tr>
+                   <tr>
+                      <td>313307	</td>
+                      <td>Basic Electrical And Engineering Model	</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://drive.google.com/file/d/1tkUdetdQ5ebXSQ3mWLLJzlaBmpIwLnIz/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22317	</td>
+                      <td>	Engineering Metrology</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://drive.google.com/file/d/15XZtGGGkibBsMO4yshtOrhTGqxXNDj1k/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22318</td>
+                      <td>	Strength Of Materials</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://drive.google.com/file/d/13z8XT7Uqp_miSeB0gFjePfiIzsuL8RDR/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                      <td>22319	</td>
+                      <td>	Thermal Engineering</td>
+                      <td>Syllabus</td>
+                      <td><a href="https://drive.google.com/file/d/13z8XT7Uqp_miSeB0gFjePfiIzsuL8RDR/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22320	</td>
+                    <td>Mechanical Working Drawing Model</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1YFF8eE3ZHFLIPS4QJM99a-AijCm5FCbI/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                  
+           </thead>
+          </tbody>
+        </table>
+      </div>
+      <div>
+          <h3 class="sem-header">MSBTE 4th Semester Syllabus Pdf</h3>
+          <!-- <pre>                                             Download the MSBTE Syllabus for the 4th Semester Diploma of Computer Branches.</pre> -->
+      </div>
+      <div class="container">
+          <table id="manual_table">       
+               <tbody>
+                  <thead>
+                     <tr>
+                      <th class="coder-header1">subject code</th>
+                      <th class="subject-header1">subject name</th>
+                      <th class="=manual-header1">Syllabus</th>
+                      <th class="download-header1">Download</th>
+                     </tr>
+                   <tr>
+                      <td>22412	</td>
+                      <td>	Mechanical Engineering Measurement </td>
+                      <td>Syllabus</td>
+                      <td><a href="https://drive.google.com/file/d/194ZYMkUdDBgUFBmaUz-fYV9Jbz82Y6hK/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td> 22034	</td>
+                    <td>Theory Of Mechanics</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1x4zhvP6F5JYQNzu_SIflYGvDMZrLlugZ/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td> 22413</td>
+                    <td>Fluid Mechanics & Machinery	</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/10JTL1JaMajv_AJ65jvPFQSrYSv5K8tW1/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   
+                   <tr>
+                    <td> 22414</td>
+                    <td> Manufacturing & Processes</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1vGIoYa08qd57L_xJO6ZOTDFqBPpeHNL1/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   
+                  </thead>
+              </tbody>
+          </table>
+      </div>
+      <div>
+        <h3 class="sem-header">MSBTE 5th Semester Syllabus Pdf</h3>
+        <!-- <p>Download the MSBTE Syllabus for the 3rd Semester Diploma of Computer Branches.</p> -->
+    </div>
+    <div class="container">
+        <table id="manual_table">       
+             <tbody>
+                <thead>
+                   <tr>
+                    <th class="coder-header1">subject code</th>
+                    <th class="subject-header1">subject name</th>
+                    <th class="=manual-header1">Syllabus</th>
+                    <th class="download-header1">Download</th>
+                   </tr>
+                 <tr>
+                    <td>22517</td>
+                    <td>Advance Manufacturing Process</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1QOsM9mEpEmkbDS4_GGYdTd5Y88QjcJUr/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22447	</td>
+                  <td>Power Engineering And Refrigeration	</td>
+                  <td>Syllabus</td>
+                  <td><a href="https://drive.google.com/file/d/1CzFC16_ZxWoPDtEWAidU_lpl_XymXAR_/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22516	</td>
+                  <td>Managment</td>
+                  <td>Syllabus</td>
+                  <td><a href="https://drive.google.com/file/d/1lTW5xJC24THguZV3LSLkP8oCVQy5b648/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22518</td>
+                  <td>Tool Engineering	</td>
+                  <td>Syllabus</td>
+                  <td><a href="https://drive.google.com/file/d/1mRLu8WJiohUb5eioHsZxOt2wz7yZCwRu/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                 </tr>
+                 <tr>
+                  <td>22519	</td>
+                  <td>Power Plant Engineering	</td>
+                  <td>Syllabus</td>
+                  <td><a href="https://drive.google.com/file/d/1a4obxkkRWJ-NXT5TQ_FWwaZmY_mItdHm/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                 </tr>
+               
+             </thead>
+            </tbody>
+        </table> 
+      </div>
+      <div>
+        <h3 class="sem-header">MSBTE 6th Semester Syllabus Pdf</h3>
+        <!-- <p>Download the MSBTE Syllabus for the 3rd Semester Diploma of Computer Branches.</p> -->
+    </div>
+    <div class="container">
+        <table id="manual_table">       
+             <tbody>
+                <thead>
+                   <tr>
+                    <th class="coder-header1">subject code</th>
+                    <th class="subject-header1">subject name</th>
+                    <th class="=manual-header1">Syllabus</th>
+                    <th class="download-header1">Download</th>
+                   </tr>
+                   <tr>
+                    <td>22509</td>
+                    <td>Computer Integrated Manufacturing</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1plahZgo6YRDN_59YQhz59nQT-X5rN5Ts/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22618	</td>
+                    <td>Automobile Engineering	</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1nQt3HQu77vIfI8pO2eMOYrsqF_oeI7jh/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22617</td>
+                    <td>Refrigeration And Air-conditioning	</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1lEicoJv9QuoN_kbv_WCPh_0dZt6ecnaj/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22619</td>
+                    <td>Industrial Hydraulics And Pneumatics</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/182KQ4tEp5G5alfQGhtqBvcD2vkCQN3It/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                   <tr>
+                    <td>22616	</td>
+                    <td>Emerging Trends	</td>
+                    <td>Syllabus</td>
+                    <td><a href="https://drive.google.com/file/d/1doGi6M8XQy26lTVgXtH-NTF3ewiVuPp0/view?usp=sharing" download=" " class="download-btn">Download</a></td>
+                   </tr>
+                 
+                 
+                </thead>
+             </tbody>
+        </table>
+    </div>
+   
+    <hr>
+   <section class="form-section">
+    <form class="contact-form">
+      <h3>Contact Us</h3>
+      <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" rows="4" required></textarea>
+      </div>
+      <div class="form-group">
+          <input type="submit" value="Submit">
+      </div>
+  </form>
+  </section>
+  
+  <footer class="footer">
+    <p>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+    </p>
+    <p>&copy;  | Designed by <a href="https://example.com" target="_blank">Apna Web Team</a></p>
+  </footer>
+  
+
+</body>
+</html>
